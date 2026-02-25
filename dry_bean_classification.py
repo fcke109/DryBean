@@ -212,11 +212,8 @@ print("-" * 60)
 
 models = {
     "K-Nearest Neighbours": KNeighborsClassifier(n_neighbors=5),
-    "Decision Tree": DecisionTreeClassifier(random_state=RANDOM_STATE, max_depth=15),
     "Random Forest": RandomForestClassifier(n_estimators=100, random_state=RANDOM_STATE, n_jobs=-1),
     "SVM (RBF)": SVC(kernel='rbf', C=10, gamma='scale', random_state=RANDOM_STATE),
-    "Logistic Regression": LogisticRegression(max_iter=1000, random_state=RANDOM_STATE),
-    "Naive Bayes": GaussianNB(),
 }
 
 results = {}
@@ -315,10 +312,10 @@ plt.savefig(os.path.join(OUTPUT_DIR, "cv_comparison.png"), dpi=150)
 plt.close()
 print("    Saved: cv_comparison.png")
 
-# 5c. Confusion matrices for all models
-fig, axes = plt.subplots(2, 3, figsize=(20, 13))
+# 5c. Confusion matrices for all models (3 models: 1 row x 3 columns)
+fig, axes = plt.subplots(1, 3, figsize=(18, 6))
 for idx, (name, res) in enumerate(results.items()):
-    ax = axes[idx // 3][idx % 3]
+    ax = axes[idx]
     cm = confusion_matrix(y_test, res['y_pred'])
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', ax=ax,
                 xticklabels=class_names, yticklabels=class_names)

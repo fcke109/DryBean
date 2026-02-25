@@ -176,14 +176,20 @@ add_text_box(slide, Inches(1), Inches(5.7), Inches(11.333), Inches(0.5),
 # ============================================================
 slide = content_slide("Group Members & Contributions")
 
-# Table header
+# Table header - Matching rubric sections
+# 1. Problem Definition & Dataset Description (5%) - Jasmine
+# 2. Methodology & Design Rationale (20%) - Felix
+# 3. Experimental Setup & Training Configuration (10%) - Aryan
+# 4. Evaluation Metrics & Analysis Methods (20%) - Shawn
+# 5. Results & Error Analysis (30%) - Toh Jun Peng Brandon
+# 6. Limitations & Proposed Improvements (15%) - Lian Ziang
 members = [
-    ("Member 1 Name", "Student ID 1", "~17%", "Literature Review, Data Preprocessing"),
-    ("Member 2 Name", "Student ID 2", "~17%", "KNN & Decision Tree Implementation"),
-    ("Member 3 Name", "Student ID 3", "~17%", "Random Forest & SVM Implementation"),
-    ("Member 4 Name", "Student ID 4", "~17%", "Logistic Regression & Naive Bayes"),
-    ("Member 5 Name", "Student ID 5", "~16%", "Results Analysis & Visualization"),
-    ("Member 6 Name", "Student ID 6", "~16%", "Slide Design & Presentation Prep"),
+    ("Jasmine April Aulia Ng", "[Student ID]", "A, D", "1. Problem Definition & Dataset Description"),
+    ("Felix", "[Student ID]", "A, R", "2. Methodology & Design Rationale"),
+    ("Aryan", "[Student ID]", "E, D", "3. Experimental Setup & Training Config"),
+    ("Shawn", "[Student ID]", "A, V", "4. Evaluation Metrics & Analysis Methods"),
+    ("Toh Jun Peng Brandon", "[Student ID]", "E, V, A", "5. Results & Error Analysis"),
+    ("Lian Ziang", "[Student ID]", "A, R", "6. Limitations & Proposed Improvements"),
 ]
 
 # Create table
@@ -198,8 +204,8 @@ table.columns[1].width = Inches(2.2)
 table.columns[2].width = Inches(1.5)
 table.columns[3].width = Inches(5.0)
 
-# Header row
-headers = ["Full Name", "Student Number", "Contribution %", "Key Tasks"]
+# Header row - Matches Attribution Table format from rubric
+headers = ["Student Name", "Student ID", "Roles", "Section"]
 for j, header in enumerate(headers):
     cell = table.cell(0, j)
     cell.text = header
@@ -252,7 +258,7 @@ add_bullet_list(slide, Inches(0.8), Inches(1.3), Inches(5.5), Inches(5.5), [
     "    and size descriptors (major/minor axis, eccentricity)",
     "",
     "Project Aims:",
-    "  - Compare 6 ML algorithms for multi-class bean classification",
+    "  - Compare 3 ML algorithms for multi-class bean classification",
     "  - Evaluate models using accuracy, precision, recall, F1-score",
     "  - Identify the best approach for this classification task",
 ], font_size=15, color=DARK_GRAY)
@@ -325,34 +331,41 @@ add_bullet_list(slide, Inches(0.8), Inches(1.3), Inches(11.5), Inches(5.5), [
 # ============================================================
 slide = content_slide("Literature Review: Algorithm Overview")
 
-# Left column
+# Left column - KNN
 add_bullet_list(slide, Inches(0.8), Inches(1.3), Inches(5.8), Inches(5.5), [
     "K-Nearest Neighbours (KNN):",
-    "  - Instance-based learning; classifies by majority vote",
-    "  - Simple, non-parametric; sensitive to feature scaling",
-    "",
-    "Decision Tree:",
-    "  - Recursive partitioning based on feature thresholds",
-    "  - Interpretable; prone to overfitting without pruning",
+    "  - Instance-based learning algorithm",
+    "  - Classifies by majority vote of k nearest neighbours",
+    "  - Uses Euclidean distance as similarity metric",
+    "  - Non-parametric: makes no assumptions about data distribution",
+    "  - Sensitive to feature scaling (requires standardization)",
+    "  - Hyperparameter: k=5 (number of neighbours)",
     "",
     "Random Forest:",
-    "  - Ensemble of decision trees with bagging",
-    "  - Reduces variance; robust to noise and overfitting",
+    "  - Ensemble of multiple decision trees (100 trees)",
+    "  - Uses bagging (bootstrap aggregating) for training",
+    "  - Each tree trained on random subset of features",
+    "  - Reduces overfitting through averaging predictions",
+    "  - Provides feature importance scores",
+    "  - Robust to noise and outliers",
 ], font_size=14, color=DARK_GRAY)
 
-# Right column
+# Right column - SVM
 add_bullet_list(slide, Inches(6.8), Inches(1.3), Inches(5.8), Inches(5.5), [
     "Support Vector Machine (SVM):",
-    "  - Finds optimal hyperplane; RBF kernel for non-linear data",
-    "  - Effective in high-dimensional spaces",
+    "  - Finds optimal hyperplane to separate classes",
+    "  - Maximizes margin between class boundaries",
+    "  - RBF (Radial Basis Function) kernel used",
+    "  - RBF maps data to higher dimensions for non-linear separation",
+    "  - Hyperparameters: C=10 (regularization), gamma=scale",
+    "  - Effective in high-dimensional feature spaces",
     "",
-    "Logistic Regression:",
-    "  - Probabilistic linear model (multinomial for multi-class)",
-    "  - Fast training; good baseline classifier",
-    "",
-    "Naive Bayes (Gaussian):",
-    "  - Probabilistic classifier assuming feature independence",
-    "  - Very fast; works well when independence assumption holds",
+    "Why these 3 models?",
+    "  - KNN: Simple baseline, good for comparison",
+    "  - Random Forest: Best for tabular data, handles correlations",
+    "  - SVM: Strong theoretical foundation, handles non-linearity",
+    "  - All three are well-suited for multi-class classification",
+    "  - Diverse approaches: instance-based, ensemble, kernel-based",
 ], font_size=14, color=DARK_GRAY)
 
 
@@ -378,7 +391,7 @@ add_bullet_list(slide, Inches(0.8), Inches(1.3), Inches(11.5), Inches(5.5), [
     "  - StandardScaler: zero mean, unit variance normalization",
     "",
     "Step 4: Model Training & Evaluation",
-    "  - Trained 6 classifiers: KNN, Decision Tree, Random Forest, SVM, Logistic Regression, Naive Bayes",
+    "  - Trained 3 classifiers: K-Nearest Neighbours (KNN), Random Forest, SVM (RBF kernel)",
     "  - 5-fold stratified cross-validation on training set",
     "  - Evaluated on held-out test set: Accuracy, Precision, Recall, F1-Score",
     "",
@@ -401,11 +414,8 @@ add_bullet_list(slide, Inches(0.8), Inches(1.3), Inches(5.8), Inches(5.8), [
     "",
     "Model Hyperparameters:",
     "  - KNN: k=5, Euclidean distance",
-    "  - Decision Tree: max_depth=15",
-    "  - Random Forest: 100 trees",
+    "  - Random Forest: 100 trees, default max_depth",
     "  - SVM: RBF kernel, C=10, gamma=scale",
-    "  - Logistic Regression: max_iter=1000, multinomial",
-    "  - Naive Bayes: Gaussian (default priors)",
     "",
     "Evaluation Metrics:",
     "  - Accuracy: overall correctness",
@@ -593,20 +603,20 @@ slide = content_slide("Results: Discussion & Analysis")
 add_bullet_list(slide, Inches(0.8), Inches(1.3), Inches(5.5), Inches(5.5), [
     "Key Findings:",
     "",
-    "  - SVM (RBF) achieved the highest test accuracy (92.43%),",
-    "    followed by Random Forest and Logistic Regression (92.07%)",
+    "  - SVM (RBF) achieved the highest test accuracy among",
+    "    all three models tested",
     "",
-    "  - Naive Bayes performed the worst due to the assumption",
-    "    of feature independence (violated by correlated features)",
+    "  - Random Forest performed similarly to SVM with",
+    "    slightly lower accuracy but faster training",
     "",
-    "  - Decision Tree showed signs of overfitting (high train",
-    "    accuracy but lower test accuracy compared to RF)",
+    "  - KNN showed competitive performance but is",
+    "    computationally expensive at prediction time",
     "",
-    "  - KNN performed well but is computationally expensive",
-    "    at prediction time for large datasets",
+    "  - All three models achieved >91% test accuracy,",
+    "    demonstrating the dataset is well-suited for ML",
     "",
-    "  - Feature scaling was crucial for KNN, SVM, and",
-    "    Logistic Regression (distance/gradient-based methods)",
+    "  - Feature scaling was crucial for KNN and SVM",
+    "    (distance/kernel-based methods)",
 ], font_size=14, color=DARK_GRAY)
 
 add_bullet_list(slide, Inches(6.8), Inches(1.3), Inches(5.5), Inches(5.5), [
@@ -641,7 +651,7 @@ slide = content_slide("Conclusion")
 add_bullet_list(slide, Inches(0.8), Inches(1.3), Inches(5.5), Inches(5.5), [
     "Summary:",
     "",
-    "  - Successfully implemented and compared 6 ML classifiers",
+    "  - Successfully implemented and compared 3 ML classifiers",
     "    on the UCI Dry Bean Dataset (13,611 samples, 7 classes)",
     "",
     "  - SVM (RBF) achieved the best test accuracy at 92.43%",
